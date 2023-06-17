@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Base from "../BasePage/Base";
 import { useNavigate, useParams } from "react-router-dom";
-import CrumBar from "./CrumBar";
+import TcrumBar from "./Tcrumbar";
 
-export default function EditProfile({ studentData, setData, crumState, setCrumState }) {
+export default function EditProfile({ teacherData, setTdata, tcrumState, setTcrumState }) {
 
     const navigate = useNavigate()
 
@@ -18,18 +18,18 @@ export default function EditProfile({ studentData, setData, crumState, setCrumSt
 
     useEffect(() => {
         console.log("id : ", id)
-        const selectedStudent = studentData.find((stud, index) => stud.id === parseInt(id));
-        console.log(selectedStudent)
-        setIdx(selectedStudent.id)
-        setName(selectedStudent.name)
-        setBatch(selectedStudent.batch)
-        setQualification(selectedStudent.qualification)
-        setPhone(selectedStudent.phone)
-        setEmail(selectedStudent.email)
-    }, [id, studentData])
+        const selectedTeacher = teacherData.find((stud, index) => stud.id === parseInt(id));
+        console.log(selectedTeacher)
+        setIdx(selectedTeacher.id)
+        setName(selectedTeacher.name)
+        setBatch(selectedTeacher.batch)
+        setQualification(selectedTeacher.qualification)
+        setPhone(selectedTeacher.phone)
+        setEmail(selectedTeacher.email)
+    }, [id,teacherData])
 
-    function editStudent() {
-        const editedStudentObject = {
+    function editTeacher() {
+        const editedTeacherObject = {
             id: idx,
             name,
             batch,
@@ -37,20 +37,20 @@ export default function EditProfile({ studentData, setData, crumState, setCrumSt
             phone,
             qualification
         }
-        console.log(editedStudentObject)
+        console.log(editedTeacherObject)
         // we need to find the index
-        const editIndex = studentData.findIndex((stud, index) => stud.id === parseInt(id));
+        const editIndex = teacherData.findIndex((stud, index) => stud.id === parseInt(id));
         console.log(editIndex)
-        studentData[editIndex] = editedStudentObject
-        setData([...studentData]);
+        teacherData[editIndex] = editedTeacherObject
+        setTdata([...teacherData]);
         navigate("/student/all")
     }
 
     return (
         <Base>
-    <CrumBar 
-         crumState ={crumState}
-         setCrumState ={setCrumState}
+        <TcrumBar 
+         tcrumState ={tcrumState}
+         setTcrumState ={setTcrumState}
         />
             <div className="p-5 ediv ">Please Fill the form to add Edit Student</div>
             <div className="form-control">
@@ -116,9 +116,9 @@ export default function EditProfile({ studentData, setData, crumState, setCrumSt
                 </label>
 
                 <button className="rounded-full bn bg-base-200 p-2 m-5"
-                    onClick={editStudent}
+                    onClick={editTeacher}
                 >
-                    Edit User
+                    Edit Teacher
                 </button>
             </div>
         </Base>

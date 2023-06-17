@@ -19,8 +19,8 @@ export default function SideBar(){
                 </li>
                 <li className="rounded-full p-2 hover:bg-sky-700">
                     <button
-                     onClick={()=>navigate("/profile/all")}
-                     >Profile</button>
+                     onClick={()=>navigate("/teacher/all")}
+                     >Teachers</button>
                 </li>
                 
                 </ul>

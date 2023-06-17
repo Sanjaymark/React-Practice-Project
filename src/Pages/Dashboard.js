@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import Base from "../BasePage/Base";
-import StudentCard from "../Components/StudentCard";
 import { useNavigate } from "react-router-dom";
 
-export default function Dashboard({student}){
+export default function Dashboard(){
     const navigate = useNavigate()
     return (
         <Base>
@@ -12,8 +10,15 @@ export default function Dashboard({student}){
         <button 
         className="rounded-full bg-accent userbutton p-3 m-5"
         onClick={()=>navigate("/student/add")}
-        >
-            Create User</button>
+        > Create Student
+        </button>
+        
+        <button 
+        className="rounded-full bg-accent userbutton p-3 m-5"
+        onClick={()=>navigate("/teacher/add")}
+        > Create Teacher
+        </button>
+
         </Base>
     )
 }

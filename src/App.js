@@ -2,13 +2,13 @@
 import './App.css';
 import React, { useState } from 'react';
 import Dashboard from './Pages/Dashboard';
-import Profile from './Pages/Profile';
 import StudentList from './Components/StudentList';
 import { Routes, Route } from 'react-router-dom';
 import AddStudents from './Components/AddStudents';
 import EditStudent from './Components/EditStudent';
-import ProfileList from './Components/ProfileList';
-import EditProfile from './Components/EditProfile';
+import AddTeachers from './Components/AddTeachers'
+import EditTeacher from './Components/EditTeacher'
+import TeacherList from './Components/TeacherList'
 
 
 
@@ -33,14 +33,44 @@ const studentData = [
       qualification: "B.Tech"
      },
 ]
+
+const teacherData = [
+  {
+   id: 1,
+   name : "Sanjay",
+   batch: "16",
+   email: "sanjay@gmail.com",
+   phone: 7799316903,
+   qualification: "B.E"
+  },
+  {
+    id: 2,
+   name : "Ajay",
+   batch: "25",
+   email: "ajay@gmail.com",
+   phone: 9550316853,
+   qualification: "B.Tech"
+  },
+]
+
 const pages = [
   {
     name : "students",
     path : "/student/all"
   }
 ]
+
+const tpages = [
+  {
+    name : "teachers",
+    path : "/teacher/all"
+  }
+]
+
 const [data, setData] = useState(studentData)
+const [tdata, setTdata] = useState(teacherData)
 const [crumState, setCrumState] = useState(pages)
+const [tcrumState, setTcrumState] = useState(tpages)
   return (
 <div className="App">
 
@@ -48,13 +78,16 @@ const [crumState, setCrumState] = useState(pages)
   <Route exact path="/" element={<Dashboard/>}/>
 
   <Route
-  path="/profile" element={<Profile/>}
-  />
-
-  <Route
   path="/student/add" element={<AddStudents
     studentData={data}
     setData ={setData}
+  />}
+  />
+
+  <Route
+  path="/teacher/add" element={<AddTeachers
+    teacherData={tdata}
+    setTdata ={setTdata}
   />}
   />
 
@@ -68,11 +101,11 @@ const [crumState, setCrumState] = useState(pages)
   />
 
   <Route
-  path="/edit/:id" element={<EditProfile
-    studentData={data}
-    setData ={setData}
-    crumState ={crumState}
-    setCrumState ={setCrumState}
+  path="/edit/:id" element={<EditTeacher
+    teacherData={tdata}
+    setTdata ={setTdata}
+    tcrumState ={tcrumState}
+    setTcrumState ={setTcrumState}
   />}
   />
 
@@ -84,12 +117,12 @@ const [crumState, setCrumState] = useState(pages)
     setData ={setData}
     />}/>
 
-  <Route path="/profile/all" element={
-    <ProfileList
-    crumState ={crumState}
-    setCrumState ={setCrumState}
-    studentData={data}
-    setData ={setData}
+  <Route path="/teacher/all" element={
+    <TeacherList
+    tcrumState ={tcrumState}
+    setTcrumState ={setTcrumState}
+    teacherData={tdata}
+    setTdata ={setTdata}
     />}/>
 </Routes>
 
