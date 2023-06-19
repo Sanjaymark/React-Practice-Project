@@ -27,7 +27,10 @@ const navigate = useNavigate()
     <div className="card w-96 bg-base-100 shadow-xl m-2">
     <div className="card-body">
           <h2 className="card-title">{student.name}</h2>
-            
+          <p>Email: {student.email}</p>
+              <p>Phone: {student.phone}</p>
+               <p>Batch: {student.batch}</p>
+                <p>EDU  : {student.qualification}</p>
             <div className="card-actions justify-end">
         
 

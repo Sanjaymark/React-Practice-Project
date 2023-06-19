@@ -5,7 +5,7 @@ export default function Dashboard(){
     const navigate = useNavigate()
     return (
         <Base>
-        <h1 className="">Users Dashboard</h1>
+        <h1 className="">Dashboard</h1>
 
         <button 
         className="rounded-full bg-accent userbutton p-3 m-5"

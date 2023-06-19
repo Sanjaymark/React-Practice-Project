@@ -15,7 +15,7 @@ export default function SideBar(){
                 <li className="rounded-full p-2 hover:bg-sky-700">
                     <button
                       onClick={()=>navigate("/student/all")}
-                    >Users</button>
+                    >Students</button>
                 </li>
                 <li className="rounded-full p-2 hover:bg-sky-700">
                     <button
