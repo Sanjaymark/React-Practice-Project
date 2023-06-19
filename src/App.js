@@ -101,7 +101,7 @@ const [tcrumState, setTcrumState] = useState(tpages)
   />
 
   <Route
-  path="/edit/:id" element={<EditTeacher
+  path="/edit/teacher/:id" element={<EditTeacher
     teacherData={tdata}
     setTdata ={setTdata}
     tcrumState ={tcrumState}

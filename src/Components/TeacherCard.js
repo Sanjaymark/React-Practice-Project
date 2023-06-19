@@ -16,10 +16,10 @@ export default function TeacherCard({teacher, teacherData, setTdata, tcrumState,
     const handleEdit = (id)=>{
         const newCrum = {
             name : "edit",
-            path:  `/edit/${id}`
+            path:  `/edit/teacher/${id}`
         }
         setTcrumState([...tcrumState, newCrum])
-        navigate(`/edit/${id}`)
+        navigate(`/edit/teacher/${id}`)
     }
 
     return (
