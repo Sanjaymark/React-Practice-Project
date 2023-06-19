@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import Base from "../BasePage/Base";
 import { useNavigate, useParams } from "react-router-dom";
 import CrumBar from "./CrumBar";
+import { AppState } from "../Context/AppProvider";
 
-export default function EditStudent({ studentData, setData, crumState, setCrumState }) {
-
+export default function EditStudent() {
+    const {studentData, setData} = AppState()
     const navigate = useNavigate()
 
     const { id } = useParams();
@@ -20,7 +21,6 @@ export default function EditStudent({ studentData, setData, crumState, setCrumSt
         console.log("id : ", id)
         const selectedStudent = studentData.find((stud, index) => stud.id === parseInt(id));
         console.log(selectedStudent)
-        
         setIdx(selectedStudent.id)
         setName(selectedStudent.name)
         setBatch(selectedStudent.batch)
@@ -39,7 +39,6 @@ export default function EditStudent({ studentData, setData, crumState, setCrumSt
             qualification
         }
         console.log(editedStudentObject)
-
         // we need to find the index
         const editIndex = studentData.findIndex((stud, index) => stud.id === parseInt(id));
         console.log(editIndex)
@@ -50,10 +49,7 @@ export default function EditStudent({ studentData, setData, crumState, setCrumSt
 
     return (
         <Base>
-            <CrumBar 
-                crumState ={crumState}
-                setCrumState ={setCrumState}
-            />
+    <CrumBar/>
             <div className="p-5">Please Fill the form to add Edit Student</div>
             <div className="form-control">
                 <label className="input-group input-group-md  m-2">

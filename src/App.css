@@ -18,14 +18,3 @@
   align-items: stretch;
   gap:7rem;
 }
-
-.card-body
-{
-  color: black;
-}
-
-.card-title
-{
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  text-decoration: underline;
-}

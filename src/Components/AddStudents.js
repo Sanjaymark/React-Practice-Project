@@ -1,18 +1,19 @@
 import { useState } from "react";
 import Base from "../BasePage/Base";
+import { AppState } from "../Context/AppProvider";
 
 
-export default function AddStudents({studentData, setData}) {
+export default function AddStudents() {
+    const {studentData, setData} = AppState()
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [batch, setBatch] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [qualification, setQualification] = useState("");
-    //setId(value) => id
     function addnewStudent(){
       const newStudentObj = {
-        id, 
+        id : parseInt(id), 
         name, 
         batch, 
         email, 
@@ -20,11 +21,9 @@ export default function AddStudents({studentData, setData}) {
         qualification
       }
       console.log(newStudentObj)
-      
       // adding newdata
       setData([...studentData, newStudentObj]);
-         
-      //if we wanted to remove data 
+         //if we wanted to remove data 
          setId("");
          setName("")
          setBatch("")
@@ -74,7 +73,7 @@ export default function AddStudents({studentData, setData}) {
                     placeholder="Enter Student Email" 
                     className="input input-bordered input-md w-96" 
                     value ={email}
-                    onChange={(e)=>setEmail(e.targetvalue)}
+                    onChange={(e)=>setEmail(e.target.value)}
                     />
                 </label>
                 <label className="input-group input-group-md m-2">

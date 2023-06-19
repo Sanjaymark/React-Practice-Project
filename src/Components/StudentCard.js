@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { AppState } from "../Context/AppProvider";
 
-export default function StudentCard({student, studentData, setData, crumState, setCrumState}){
-const navigate = useNavigate()
+export default function StudentCard({student}){
+    const {studentData, setData, crumState, setCrumState} = AppState()
+    const navigate = useNavigate()
 
     const removeStudent = (id)=>{
         //api operations 
