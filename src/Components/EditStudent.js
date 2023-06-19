@@ -7,9 +7,9 @@ export default function EditStudent({ studentData, setData, crumState, setCrumSt
 
     const navigate = useNavigate()
 
-    const { id } = useParams();
+    const{ id } = useParams();
 
-    const [idx, setIdx] = useState("");
+    const [idx, setIdx] = useState();
     const [name, setName] = useState("");
     const [batch, setBatch] = useState("");
     const [email, setEmail] = useState("");
@@ -18,7 +18,7 @@ export default function EditStudent({ studentData, setData, crumState, setCrumSt
 
     useEffect(() => {
         console.log("id : ", id)
-        const selectedStudent = studentData.find((stud, index) => stud.id === parseInt(id));
+        const selectedStudent = studentData.find((stud, index) =>stud.id === parseInt(id));
         console.log(selectedStudent)
         setIdx(selectedStudent.id)
         setName(selectedStudent.name)
@@ -118,7 +118,7 @@ export default function EditStudent({ studentData, setData, crumState, setCrumSt
                 <button className="rounded-full bn bg-base-200 p-2 m-5"
                     onClick={editStudent}
                 >
-                    Edit User
+                    Edit Student
                 </button>
             </div>
         </Base>

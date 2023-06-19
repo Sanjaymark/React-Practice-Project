@@ -12,7 +12,7 @@ export default function AddStudents({studentData, setData}) {
     //setId(value) => id
     function addnewStudent(){
       const newStudentObj = {
-        id, 
+        id : parseInt(id), 
         name, 
         batch, 
         email, 
@@ -99,7 +99,7 @@ export default function AddStudents({studentData, setData}) {
                 <button className="rounded-full bn bg-base-200 bn p-2 m-5"
                 onClick={addnewStudent}
                 >
-                    Add User
+                    Add Student
                 </button>
             </div>
         </Base>

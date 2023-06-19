@@ -12,7 +12,7 @@ export default function AddTeachers({teacherData, setTdata}) {
     //setId(value) => id
     function addnewTeacher(){
       const newTeacherObj = {
-        id, 
+        id : parseInt(id), 
         name, 
         batch, 
         email, 

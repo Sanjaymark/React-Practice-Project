@@ -9,7 +9,7 @@ export default function EditProfile({ teacherData, setTdata, tcrumState, setTcru
 
     const { id } = useParams();
 
-    const [idx, setIdx] = useState("");
+    const [idx, setIdx] = useState();
     const [name, setName] = useState("");
     const [batch, setBatch] = useState("");
     const [qualification, setQualification] = useState("");
@@ -43,7 +43,7 @@ export default function EditProfile({ teacherData, setTdata, tcrumState, setTcru
         console.log(editIndex)
         teacherData[editIndex] = editedTeacherObject
         setTdata([...teacherData]);
-        navigate("/student/all")
+        navigate("/teacher/all")
     }
 
     return (
