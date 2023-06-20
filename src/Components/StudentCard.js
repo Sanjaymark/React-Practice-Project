@@ -1,14 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import { AppState } from "../Context/AppProvider";
+import { API } from "../API/api";
 
 export default function StudentCard({student}){
     const {studentData, setData, crumState, setCrumState} = AppState()
     const navigate = useNavigate()
 
-    const removeStudent = (id)=>{
+    const removeStudent = async (id)=>{
         //api operations 
-      let response = window.confirm("Are your sure?");
-      if(response){
+      let res = window.confirm("Are your sure?");
+      if(res)
+      {
+
+        const response = await fetch(`${API}/${id}`,
+        {
+            method :"DELETE"
+        })
+
+        const data = await response.json()
+        console.log(data)
+
       const newStudentData = studentData.filter((stud)=>stud.id !== id);
       setData(newStudentData)
        }
