@@ -1,23 +1,19 @@
 import Base from "../BasePage/Base"
 import TcrumBar from "./Tcrumbar";
 import TeacherCard from "./TeacherCard"
+import { TeacherState } from "../Context/TeacherProvider"
 
-function TeacherList({teacherData, setTdata, tcrumState, setTcrumState})
+function TeacherList()
 {
+    const {teacherData} = TeacherState()
     return (
         <Base>
-        <TcrumBar 
-         tcrumState ={tcrumState}
-         setTcrumState ={setTcrumState}
-        />
+        <TcrumBar/>
             {teacherData.map((teac, idx)=>(
                 <TeacherCard
                 teacher={teac}
-                teacherData ={teacherData}
-                setTdata={setTdata}
-                key={teac.id}
-                tcrumState ={tcrumState}
-                setTcrumState ={setTcrumState}
+                key={idx}
+                
                 />
             ))}
         </Base>

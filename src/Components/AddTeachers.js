@@ -1,29 +1,46 @@
 import { useState } from "react";
 import Base from "../BasePage/Base";
+import { API2 } from "../API/api";
+import {TeacherState } from "../Context/TeacherProvider"
 
+export default function AddTeachers() {
+    const {teacherData, setTeacherdata} = TeacherState()
 
-export default function AddTeachers({teacherData, setTdata}) {
-    const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [batch, setBatch] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [qualification, setQualification] = useState("");
+    
+    
     //setId(value) => id
-    function addnewTeacher(){
-      const newTeacherObj = {
-        id : parseInt(id), 
+    async function addnewTeacher()
+    {
+      const newTeacherObj = 
+      {
+         
         name, 
         batch, 
         email, 
         phone,
         qualification
       }
-      console.log(newTeacherObj)
+
+      const response = await fetch(API2,
+        {
+            method : "POST",
+            body : JSON.stringify(newTeacherObj),
+            headers :{
+                "Content-Type" : "application/json"
+            },
+        })
+      
+        const data = await response.json();
+
       // adding newdata
-      setTdata([...teacherData,  newTeacherObj]);
-         //if we wanted to remove data 
-         setId("");
+      setTeacherdata([...teacherData,  newTeacherObj]);
+         
+      //if we wanted to remove data 
          setName("")
          setBatch("")
          setQualification("")
@@ -35,16 +52,6 @@ export default function AddTeachers({teacherData, setTdata}) {
         <Base>
             <div className="p-5">Please Fill the form to add new Student</div>
             <div className="form-control">
-                <label className="input-group input-group-md ip m-2">
-                    <span>ID </span>
-                    <input
-                        type="number"
-                        placeholder="Enter Student ID"
-                        className="input input-bordered input-md w-96" 
-                        value={id}
-                        onChange={(e)=>setId(e.target.value)}
-                        />
-                </label>
 
                 <label className="input-group input-group-md ip m-2">
                     <span>Name</span>

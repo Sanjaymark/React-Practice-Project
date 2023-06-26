@@ -12,118 +12,27 @@ import TeacherList from './Components/TeacherList'
 
 
 
+
+
 function App() {
-
-
-const studentData = [
-     {
-      id: 1,
-      name : "Kishore",
-      batch: "b47WD",
-      email: "abc@gmail.com",
-      phone: 782465244,
-      qualification: "B.E"
-     },
-     {
-      id: 2,
-      name : "Aditiya",
-      batch: "b47WD",
-      email: "adc@gmail.com",
-      phone: 652664624,
-      qualification: "B.Tech"
-     },
-]
-
-const teacherData = [
-  {
-   id: 1,
-   name : "Sanjay",
-   batch: "16",
-   email: "sanjay@gmail.com",
-   phone: 7799316903,
-   qualification: "B.E"
-  },
-  {
-    id: 2,
-   name : "Ajay",
-   batch: "25",
-   email: "ajay@gmail.com",
-   phone: 9550316853,
-   qualification: "B.Tech"
-  },
-]
-
-const pages = [
-  {
-    name : "students",
-    path : "/student/all"
-  }
-]
-
-const tpages = [
-  {
-    name : "teachers",
-    path : "/teacher/all"
-  }
-]
-
-const [data, setData] = useState(studentData)
-const [tdata, setTdata] = useState(teacherData)
-const [crumState, setCrumState] = useState(pages)
-const [tcrumState, setTcrumState] = useState(tpages)
   return (
 <div className="App">
 
 <Routes>
   <Route exact path="/" element={<Dashboard/>}/>
 
-  <Route
-  path="/student/add" element={<AddStudents
-    studentData={data}
-    setData ={setData}
-  />}
-  />
+  <Route path="/student/add" element={<AddStudents/>} />
 
-  <Route
-  path="/teacher/add" element={<AddTeachers
-    teacherData={tdata}
-    setTdata ={setTdata}
-  />}
-  />
+  <Route path="/teacher/add" element={<AddTeachers/>} />
 
-    <Route
-  path="/edit/:id" element={<EditStudent
-    studentData={data}
-    setData ={setData}
-    crumState ={crumState}
-    setCrumState ={setCrumState}
-  />}
-  />
+    <Route path="/edit/:id" element={<EditStudent/>}/>
 
-  <Route
-  path="/edit/teacher/:id" element={<EditTeacher
-    teacherData={tdata}
-    setTdata ={setTdata}
-    tcrumState ={tcrumState}
-    setTcrumState ={setTcrumState}
-  />}
-  />
+  <Route path="/edit/teacher/:id" element={<EditTeacher/>} />
 
-  <Route path="/student/all" element={
-    <StudentList 
-    crumState ={crumState}
-    setCrumState ={setCrumState}
-    studentData={data}
-    setData ={setData}
-    />}/>
+  <Route path="/student/all" element={<StudentList/>} />
 
-  <Route path="/teacher/all" element={
-    <TeacherList
-    tcrumState ={tcrumState}
-    setTcrumState ={setTcrumState}
-    teacherData={tdata}
-    setTdata ={setTdata}
-    />}/>
+  <Route path="/teacher/all" element={<TeacherList/>} />
+  
 </Routes>
 
 

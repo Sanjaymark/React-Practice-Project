@@ -1,15 +1,26 @@
 import { useNavigate } from "react-router-dom";
+import { TeacherState } from "../Context/TeacherProvider"
+import { API2 } from "../API/api";
 
-export default function TeacherCard({teacher, teacherData, setTdata, tcrumState, setTcrumState})
-{
+export default function TeacherCard({teacher}){
+    const {teacherData, setTeacherdata, tcrumState, setTcrumState} = TeacherState()
     const navigate = useNavigate()
-    
-    const removeTeacher = (id)=>{
+
+    const removeTeacher = async (id)=>{
         //api operations 
-      let response = window.confirm("Are your sure?");
-      if(response){
+      let res = window.confirm("Are your sure?");
+      if(res)
+      {
+
+        const response = await fetch(`${API2}/${id}`,
+        {
+            method :"DELETE"
+        })
+
+        const data = await response.json()
+        console.log(data)
       const newTeacherData = teacherData.filter((teac)=>teac.id !== id);
-      setTdata(newTeacherData)
+      setTeacherdata(newTeacherData)
        }
     }
 
