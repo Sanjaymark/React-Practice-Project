@@ -18,3 +18,7 @@
   align-items: stretch;
   gap:7rem;
 }
+
+.card-body,.bn{
+  color: black;
+}

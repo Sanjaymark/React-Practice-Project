@@ -3,7 +3,7 @@ import TopBar from "../Components/TopBar";
 
 export default function Base({children}){
     return (
-        <div className="flex flex-col w-full border-opacity-50 h-screen " data-theme="business" >
+        <div className="flex flex-col w-full border-opacity-50 h-screen " >
         <div className="grid h-20 card  rounded-box place-items-center m-1">
            <TopBar/>
         </div>

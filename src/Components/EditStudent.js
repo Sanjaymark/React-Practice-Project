@@ -3,6 +3,7 @@ import Base from "../BasePage/Base";
 import { useNavigate, useParams } from "react-router-dom";
 import CrumBar from "./CrumBar";
 import { AppState } from "../Context/AppProvider";
+import { API } from "../API/api";
 
 export default function EditStudent() {
     const {studentData, setData} = AppState()
@@ -10,7 +11,7 @@ export default function EditStudent() {
 
     const { id } = useParams();
 
-    const [idx, setIdx] = useState("");
+
     const [name, setName] = useState("");
     const [batch, setBatch] = useState("");
     const [email, setEmail] = useState("");
@@ -19,30 +20,39 @@ export default function EditStudent() {
 
     useEffect(() => {
         console.log("id : ", id)
-        const selectedStudent = studentData.find((stud, index) => stud.id === parseInt(id));
+        const selectedStudent = studentData.find((stud, index) => stud.id === id);
         console.log(selectedStudent)
-        setIdx(selectedStudent.id)
         setName(selectedStudent.name)
         setBatch(selectedStudent.batch)
         setQualification(selectedStudent.qualification)
         setPhone(selectedStudent.phone)
         setEmail(selectedStudent.email)
-    }, [id, studentData])
+    }, [id,studentData])
 
-    function editStudent() {
+   async function editStudent() {
         const editedStudentObject = {
-            id: idx,
             name,
             batch,
             email,
             phone,
             qualification
         }
-        console.log(editedStudentObject)
+
+        // api handlers 
+        const response = await fetch(`${API}/${id}`, {
+            method:"PUT",
+            body: JSON.stringify(editedStudentObject),
+            headers:{
+                "Content-Type":"application/json"
+            },
+        })
+      const data = await response.json();
+      console.log("data----", data)
+      console.log("editObj", editedStudentObject)
         // we need to find the index
-        const editIndex = studentData.findIndex((stud, index) => stud.id === parseInt(id));
+        const editIndex = studentData.findIndex((stud, index) => stud.id === id);
         console.log(editIndex)
-        studentData[editIndex] = editedStudentObject
+        studentData[editIndex] = data
         setData([...studentData]);
         navigate("/student/all")
     }
@@ -52,18 +62,7 @@ export default function EditStudent() {
     <CrumBar/>
             <div className="p-5">Please Fill the form to add Edit Student</div>
             <div className="form-control">
-                <label className="input-group input-group-md  m-2">
-                    <span>ID </span>
-                    <input
-                        type="number"
-                        placeholder="Enter Student ID"
-                        className="input input-bordered input-md w-96"
-                        value={idx}
-                        onChange={(e) => setIdx(e.target.value)}
-                    />
-                </label>
-
-                <label className="input-group input-group-md m-2">
+                <label className="input-group input-group-md bn m-2">
                     <span>Name</span>
                     <input
                         type="text"
@@ -73,7 +72,7 @@ export default function EditStudent() {
                         onChange={(e) => setName(e.target.value)}
                     />
                 </label>
-                <label className="input-group input-group-md  m-2">
+                <label className="input-group input-group-md bn m-2">
                     <span>Batch</span>
                     <input type="text"
                         placeholder="Enter Student Batch"
@@ -82,7 +81,7 @@ export default function EditStudent() {
                         onChange={(e) => setBatch(e.target.value)}
                     />
                 </label>
-                <label className="input-group input-group-md  m-2">
+                <label className="input-group input-group-md bn m-2">
                     <span>Email</span>
                     <input
                         type="text"
@@ -92,7 +91,7 @@ export default function EditStudent() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
-                <label className="input-group input-group-md m-2">
+                <label className="input-group input-group-md bn m-2">
                     <span>Phone</span>
                     <input
                         type="text"
@@ -102,7 +101,7 @@ export default function EditStudent() {
                         onChange={(e) => setPhone(e.target.value)}
                     />
                 </label>
-                <label className="input-group input-group-md  m-2">
+                <label className="input-group input-group-md bn m-2">
                     <span>Education</span>
                     <input
                         type="text"
@@ -113,7 +112,7 @@ export default function EditStudent() {
                     />
                 </label>
 
-                <button className="rounded-full bg-base-200 p-2 m-5"
+                <button className="rounded-full bg-base-200 p-2 bn m-5"
                     onClick={editStudent}
                 >
                     Edit Student
