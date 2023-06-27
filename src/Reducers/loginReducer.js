@@ -5,16 +5,17 @@ const loginSlice = createSlice({
     name : "loginInfo",
     initialState : {
         data : {
-            username : "",
-            password : "",
+        username : "",
+        password: ""
         }
     },
-    reducers:{
-        loginUser:(state,action) =>{
+    reducers: {
+        loginUser: (state, action) => {
             state.data = action.payload
-        },
-        logoutUser : (state,action)=>{
-            state.data = {username:"", password :""}
+        }, 
+        logoutUser : (state, action)=>{
+            state.data = {username:"", password:""}
+            localStorage.removeItem("username");
         }
     }
 })

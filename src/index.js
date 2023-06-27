@@ -8,11 +8,13 @@ import AppProvider from './Context/AppProvider';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import loginReducer from './Reducers/loginReducer';
+import signupReducer from './Reducers/signupReducer';
+
 
 const store = configureStore({
   reducer : {
-    loginInfo : loginReducer,
-    signupInfo : {},
+    loginInfo:loginReducer,
+    signupInfo: signupReducer,
   }
 })
 
@@ -20,9 +22,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
   <Provider store={store}>
-    <AppProvider>
+  <AppProvider>
       <App />
-    </AppProvider>
+  </AppProvider>
   </Provider>
   </BrowserRouter>
 );

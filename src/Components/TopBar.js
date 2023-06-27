@@ -4,7 +4,6 @@ function TopBar() {
   const { username } = useSelector(
     (state) => 
     state.loginInfo.data);
-
   return (
     <div className="navbar bg-neutral text-neutral-content rounded-lg tool-bar">
       <div className="flex-1">

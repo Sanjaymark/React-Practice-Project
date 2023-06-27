@@ -15,7 +15,7 @@ function StudentList(){
 
         <div className="p-2 m-2 flex">
         <button 
-        className="rounded-full bg-base-200 p-3 bn m-5"
+        className="rounded-full bg-base-200 p-3 m-5"
         onClick={()=>navigate("/student/add")}
         >
             Add More Students</button>
@@ -29,7 +29,9 @@ function StudentList(){
             
 <div className="join">
 <button
-         onClick={()=>setPage(currentPage-1)}
+         onClick={()=>
+          currentPage >1 ? setPage(currentPage-1) : ""
+        }
          className={`join-item btn btn-md `}>prev
          </button>  
   {
@@ -44,7 +46,9 @@ function StudentList(){
     ))
   }
 <button
-         onClick={()=>setPage(currentPage+1)}
+         onClick={()=>
+          currentPage < Math.ceil((studentData.length/2)) 
+          ? setPage(currentPage+1) : ""}
          className={`join-item btn btn-md `}>next
          </button>  
 </div>
