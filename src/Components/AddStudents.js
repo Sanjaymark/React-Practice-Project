@@ -1,46 +1,29 @@
 import { useState } from "react";
 import Base from "../BasePage/Base";
-import { API1 } from "../API/api";
-import { AppState } from "../Context/AppProvider"
 
 
-export default function AddStudents() {
-    const {studentData, setData} = AppState()
-
+export default function AddStudents({studentData, setData}) {
+    const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [batch, setBatch] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [qualification, setQualification] = useState("");
-
-
     //setId(value) => id
-    async function addnewStudent()
-    {
-      const newStudentObj = 
-      { 
+    function addnewStudent(){
+      const newStudentObj = {
+        id : parseInt(id), 
         name, 
         batch, 
         email, 
         phone,
         qualification
       }
-      
-      const response = await fetch(API1,
-        {
-            method : "POST",
-            body : JSON.stringify(newStudentObj),
-            headers : {
-                "Content-Type" : "application/json"
-            },
-        })
-
-        const data = await response.json();
-      
+      console.log(newStudentObj)
       // adding newdata
-      setData([...studentData, data]);
-         
-      //if we wanted to remove data 
+      setData([...studentData, newStudentObj]);
+         //if we wanted to remove data 
+         setId("");
          setName("")
          setBatch("")
          setQualification("")
@@ -52,6 +35,17 @@ export default function AddStudents() {
         <Base>
             <div className="p-5">Please Fill the form to add new Student</div>
             <div className="form-control">
+                <label className="input-group input-group-md ip m-2">
+                    <span>ID </span>
+                    <input
+                        type="number"
+                        placeholder="Enter Student ID"
+                        className="input input-bordered input-md w-96" 
+                        value={id}
+                        onChange={(e)=>setId(e.target.value)}
+                        />
+                </label>
+
                 <label className="input-group input-group-md ip m-2">
                     <span>Name</span>
                     <input 

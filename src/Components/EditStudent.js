@@ -2,16 +2,14 @@ import { useEffect, useState } from "react";
 import Base from "../BasePage/Base";
 import { useNavigate, useParams } from "react-router-dom";
 import CrumBar from "./CrumBar";
-import { AppState } from "../Context/AppProvider";
-import { API1 } from "../API/api";
 
-export default function EditStudent() {
+export default function EditStudent({ studentData, setData, crumState, setCrumState }) {
 
-    const {studentData, setData} = AppState()
     const navigate = useNavigate()
 
     const{ id } = useParams();
 
+    const [idx, setIdx] = useState();
     const [name, setName] = useState("");
     const [batch, setBatch] = useState("");
     const [email, setEmail] = useState("");
@@ -20,9 +18,9 @@ export default function EditStudent() {
 
     useEffect(() => {
         console.log("id : ", id)
-        const selectedStudent = studentData.find((stud, index) =>stud.id === id);
+        const selectedStudent = studentData.find((stud, index) =>stud.id === parseInt(id));
         console.log(selectedStudent)
-        
+        setIdx(selectedStudent.id)
         setName(selectedStudent.name)
         setBatch(selectedStudent.batch)
         setQualification(selectedStudent.qualification)
@@ -30,42 +28,42 @@ export default function EditStudent() {
         setEmail(selectedStudent.email)
     }, [id, studentData])
 
-    async function editStudent() {
+    function editStudent() {
         const editedStudentObject = {
-            
+            id: idx,
             name,
             batch,
             email,
             phone,
             qualification
         }
-        
-        const response = await fetch(`${API1}/${id}`,
-        {
-            method : "PUT",
-            body : JSON.stringify(editedStudentObject),
-            headers : {
-                "Content-Type" : "application/json"
-            },
-        })
-
-        const data = await response.json();
-        console.log("data..", data)
-        console.log("editObj",editedStudentObject)
-
+        console.log(editedStudentObject)
         // we need to find the index
-        const editIndex = studentData.findIndex((stud, index) => stud.id === id);
+        const editIndex = studentData.findIndex((stud, index) => stud.id === parseInt(id));
         console.log(editIndex)
-        studentData[editIndex] = data
+        studentData[editIndex] = editedStudentObject
         setData([...studentData]);
         navigate("/student/all")
     }
 
     return (
         <Base>
-    <CrumBar/>
+    <CrumBar 
+         crumState ={crumState}
+         setCrumState ={setCrumState}
+        />
             <div className="p-5 ediv "> Please Fill the form to add Edit Student</div>
             <div className="form-control">
+                <label className="input-group input-group-md inp m-2">
+                    <span>ID </span>
+                    <input
+                        type="number"
+                        placeholder="Enter Student ID"
+                        className="input input-bordered input-md w-96"
+                        value={idx}
+                        onChange={(e) => setIdx(e.target.value)}
+                    />
+                </label>
 
                 <label className="input-group input-group-md inp m-2">
                     <span>Name</span>

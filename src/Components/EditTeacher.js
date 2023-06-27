@@ -2,16 +2,14 @@ import { useEffect, useState } from "react";
 import Base from "../BasePage/Base";
 import { useNavigate, useParams } from "react-router-dom";
 import TcrumBar from "./Tcrumbar";
-import { TeacherState } from "../Context/TeacherProvider"
-import { API2 } from "../API/api";
 
-export default function EditProfile() {
+export default function EditProfile({ teacherData, setTdata, tcrumState, setTcrumState }) {
 
-    const {teacherData, setTeacherdata} = TeacherState()
     const navigate = useNavigate()
 
     const { id } = useParams();
 
+    const [idx, setIdx] = useState();
     const [name, setName] = useState("");
     const [batch, setBatch] = useState("");
     const [qualification, setQualification] = useState("");
@@ -20,9 +18,9 @@ export default function EditProfile() {
 
     useEffect(() => {
         console.log("id : ", id)
-        const selectedTeacher = teacherData.find((stud, index) => stud.id === id);
+        const selectedTeacher = teacherData.find((stud, index) => stud.id === parseInt(id));
         console.log(selectedTeacher)
-        
+        setIdx(selectedTeacher.id)
         setName(selectedTeacher.name)
         setBatch(selectedTeacher.batch)
         setQualification(selectedTeacher.qualification)
@@ -30,41 +28,42 @@ export default function EditProfile() {
         setEmail(selectedTeacher.email)
     }, [id,teacherData])
 
-    async function editTeacher() {
+    function editTeacher() {
         const editedTeacherObject = {
+            id: idx,
             name,
             batch,
             email,
             phone,
             qualification
         }
-        
-        const response = await fetch(`${API2}/${id}`,
-        {
-            method : "PUT",
-            body : JSON.stringify(editedTeacherObject),
-            headers : {
-                "Content-Type" : "application/json"
-            },
-        })
-
-        const data = await response.json();
-        console.log("data..", data)
-        console.log("editObj",editedTeacherObject)
-        
+        console.log(editedTeacherObject)
         // we need to find the index
-        const editIndex = teacherData.findIndex((stud, index) => stud.id === id);
+        const editIndex = teacherData.findIndex((stud, index) => stud.id === parseInt(id));
         console.log(editIndex)
-        teacherData[editIndex] = data
-        setTeacherdata([...teacherData]);
+        teacherData[editIndex] = editedTeacherObject
+        setTdata([...teacherData]);
         navigate("/teacher/all")
     }
 
     return (
         <Base>
-        <TcrumBar/>
+        <TcrumBar 
+         tcrumState ={tcrumState}
+         setTcrumState ={setTcrumState}
+        />
             <div className="p-5 ediv ">Please Fill the form to add Edit Student</div>
             <div className="form-control">
+                <label className="input-group input-group-md inp m-2">
+                    <span>ID </span>
+                    <input
+                        type="number"
+                        placeholder="Enter Student ID"
+                        className="input input-bordered input-md w-96"
+                        value={idx}
+                        onChange={(e) => setIdx(e.target.value)}
+                    />
+                </label>
 
                 <label className="input-group input-group-md inp m-2">
                     <span>Name</span>

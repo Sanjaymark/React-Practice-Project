@@ -1,17 +1,22 @@
 import Base from "../BasePage/Base"
 import CrumBar from "./CrumBar"
 import StudentCard from "./StudentCard"
-import { AppState } from "../Context/AppProvider";
 
-function StudentList(){
-    const {studentData} = AppState()
+function StudentList({studentData, setData, crumState, setCrumState}){
     return (
         <Base>
-        <CrumBar/>
+        <CrumBar 
+         crumState ={crumState}
+         setCrumState ={setCrumState}
+        />
             {studentData.map((stud, idx)=>(
                 <StudentCard
                 student={stud}
-                key={idx}
+                studentData ={studentData}
+                setData={setData}
+                key={stud.id}
+                crumState ={crumState}
+                setCrumState ={setCrumState}
                 />
             ))}
         </Base>
