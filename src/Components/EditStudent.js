@@ -16,7 +16,7 @@ export default function EditStudent()
     const navigate = useNavigate()
 
     const { id } = useParams();
-
+    const selectedStudent = studentData.find((stud) => stud.id === id);
     // Form validation logics 
 
    const {values, handleChange, handleSubmit, handleBlur, errors, touched} = useFormik(
@@ -38,17 +38,7 @@ export default function EditStudent()
    })
 
 
-    useEffect(() => {
-        console.log("id : ", id)
-        const selectedStudent = studentData.find((stud, index) => stud.id === id);
-        console.log(selectedStudent)
 
-        values.name=(selectedStudent.name)
-        values.batch=(selectedStudent.batch)
-        values.qualification=(selectedStudent.qualification)
-        values.phone=(selectedStudent.phone)
-        values.email=(selectedStudent.email)
-    }, [])
 
    async function editStudent(editedStudent) {
 
