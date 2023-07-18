@@ -15,7 +15,7 @@ export default function Dashboard({student}){
   const dispatch = useDispatch()
   const userLogin = ()=>{
     const userData = {
-        username, 
+        email, 
         password
     }
     console.log(userData)

@@ -10,7 +10,7 @@ export default function StudentCard({student}){
       let res = window.confirm("Are your sure?");
       if(res){
          // api delete operation
-         const response = await fetch(`${API}students/delete/${id}`, {
+         const response = await fetch(`${API}/students/delete/${id}`, {
             method :"DELETE",
             headers: {
               "x-auth-token":localStorage.getItem("token")

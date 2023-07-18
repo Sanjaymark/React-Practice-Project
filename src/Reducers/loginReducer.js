@@ -25,7 +25,7 @@ const loginSlice = createSlice({
 export const {loginUser, logoutUser} = loginSlice.actions;
 export default loginSlice.reducer
 async function loginStudentData(payload){
-    const res = await fetch(`${API}user/login`, {
+    const res = await fetch(`${API}/user/login`, {
         method: "POST",
         body : JSON.stringify(payload),
         headers: {

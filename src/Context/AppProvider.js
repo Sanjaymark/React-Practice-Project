@@ -9,7 +9,7 @@ function AppProvider({ children }) {
   const pages = [
     {
       name: "students",
-      path: "/student/all",
+      path: "/students/all",
     },
   ];
   //step2 create provider subcriber model
@@ -19,7 +19,7 @@ function AppProvider({ children }) {
 
   useEffect(() => {
     const getAllStudents = async () => {
-      const response = await fetch(`${API}students/all`, {
+      const response = await fetch(`${API}/students/all`, {
         method: "GET",
         headers: {
           "x-auth-token":localStorage.getItem("token")

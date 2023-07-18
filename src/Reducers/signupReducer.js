@@ -24,7 +24,7 @@ export const {signupUser} = signupSlice.actions;
 export default signupSlice.reducer
 
 async function postStudentData(payload){
-    const res = await fetch(`${API}user/signup`, {
+    const res = await fetch(`${API}/user/signup`, {
         method: "POST",
         body : JSON.stringify(payload),
         headers: {

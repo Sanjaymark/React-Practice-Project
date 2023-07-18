@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import Base from "../BasePage/Base";
 import { useNavigate, useParams } from "react-router-dom";
 import CrumBar from "./CrumBar";
@@ -43,7 +43,7 @@ export default function EditStudent()
    async function editStudent(editedStudent) {
 
         // api handlers 
-        const response = await fetch(`${API}/${id}`, {
+        const response = await fetch(`${API}/edit/${id}`, {
             method:"PUT",
             body: JSON.stringify(editedStudent),
             headers:{

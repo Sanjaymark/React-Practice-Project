@@ -16,7 +16,7 @@ function StudentList(){
         <div className="p-2 m-2 flex">
         <button 
         className="rounded-full bg-base-200 bn p-3 m-5"
-        onClick={()=>navigate("/student/add")}
+        onClick={()=>navigate("/students/add")}
         >
             Add More Students</button>
         </div>

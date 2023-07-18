@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import Base from "../BasePage/Base";
 import { AppState } from "../Context/AppProvider";
 import { API } from "../API/api";
@@ -38,7 +38,7 @@ export default function AddStudents() {
     async function addnewStudent(newStudent)
     {
         // api fields 
-        const response = await fetch(`${API}students/add`,
+        const response = await fetch(`${API}/students/add`,
         {
             method:"POST",
             body : JSON.stringify(newStudent),
