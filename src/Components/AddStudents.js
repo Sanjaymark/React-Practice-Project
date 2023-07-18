@@ -38,20 +38,21 @@ export default function AddStudents() {
     async function addnewStudent(newStudent)
     {
         // api fields 
-        const response = await fetch(API,
+        const response = await fetch(`${API}students/add`,
         {
             method:"POST",
             body : JSON.stringify(newStudent),
             headers: 
             {
-            "Content-Type":"application/json"
+            "Content-Type":"application/json",
+            "x-auth-token":localStorage.getItem("token")
             },
     })
      
         const data = await response.json();
       
         // adding newdata
-        setData([...studentData, data]);
+        setData([...studentData, data.data]);
         values.name = ""
         values.batch = ""
         values.email =""

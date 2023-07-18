@@ -19,11 +19,18 @@ function AppProvider({ children }) {
 
   useEffect(() => {
     const getAllStudents = async () => {
-      const response = await fetch(API, {
+      const response = await fetch(`${API}students/all`, {
         method: "GET",
+        headers: {
+          "x-auth-token":localStorage.getItem("token")
+        }
       });
-      console.log(response);
       const data = await response.json();
+      if(data.message)
+      {
+        console.log(data.message)
+        return
+      }
       console.log("data consoled", data);
       setData(data);
     };

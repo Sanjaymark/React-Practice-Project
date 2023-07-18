@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserAPI } from "../API/api";
+import { API } from "../API/api";
 
 
 const signupSlice = createSlice({
@@ -24,7 +24,7 @@ export const {signupUser} = signupSlice.actions;
 export default signupSlice.reducer
 
 async function postStudentData(payload){
-    const res = await fetch(UserAPI, {
+    const res = await fetch(`${API}user/signup`, {
         method: "POST",
         body : JSON.stringify(payload),
         headers: {
@@ -32,5 +32,5 @@ async function postStudentData(payload){
         }
       });
       const data = await res.json();
-      localStorage.setItem("username", data.username)
+      console.log(data);
 }

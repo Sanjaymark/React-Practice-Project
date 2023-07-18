@@ -40,13 +40,13 @@ export default function Dashboard({student}){
 
          <div className="form-control" style={{display: tab===2 ? "block": "none"}}>
                 <label className="input-group input-group-md bn m-2">
-                    <span>Username</span>
+                    <span>Email</span>
                     <input 
                     type="text" 
-                    placeholder="Enter Student Name" 
+                    placeholder="Enter email" 
                     className="input input-bordered input-md w-96"
-                    value={username}
-                    onChange={(e)=>setUserName(e.target.value)}
+                    value={email}
+                    onChange={(e)=>setEmail(e.target.value)}
 
                      />
 

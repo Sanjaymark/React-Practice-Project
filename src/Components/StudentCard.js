@@ -10,8 +10,11 @@ export default function StudentCard({student}){
       let res = window.confirm("Are your sure?");
       if(res){
          // api delete operation
-        const response = await fetch(`${API}/${id}`, {
-            method :"DELETE"
+         const response = await fetch(`${API}students/delete/${id}`, {
+            method :"DELETE",
+            headers: {
+              "x-auth-token":localStorage.getItem("token")
+            }
         });
         const data = await response.json();
         console.log(data)
@@ -41,11 +44,11 @@ export default function StudentCard({student}){
             <p>EDU  : {student.qualification}</p>
             <div className="card-actions justify-end">
         <button className="btn btn-danger"
-        onClick={()=>removeStudent(student.id)}
+        onClick={()=>removeStudent(student._id)}
         >Delete</button>
 
      <button className="btn btn-primary"
-        onClick={()=>handleEdit(student.id)}
+        onClick={()=>handleEdit(student._id)}
         >Edit</button>
          </div>
        </div>

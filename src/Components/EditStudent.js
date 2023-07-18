@@ -47,7 +47,8 @@ export default function EditStudent()
             method:"PUT",
             body: JSON.stringify(editedStudent),
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "x-auth-token":localStorage.getItem("token")
             },
         })
       const data = await response.json();
