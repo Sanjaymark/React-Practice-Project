@@ -7,7 +7,7 @@ export default function SideBar(){
     const dispatch = useDispatch()
     return(
     
-           <div className="side-bar-styles p-7">
+           <div className="side-bar-styles p-7 ">
             <div>
               <ul className="actions">
                 <li className="rounded-full p-2 hover:bg-sky-700">

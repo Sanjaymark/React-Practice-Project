@@ -23,11 +23,11 @@ export default function EditStudent()
     {
       initialValues : 
       {
-        name : "",
-        batch : "",
-        email : "",
-        phone : "",
-        qualification: "",
+        name : selectedStudent.name,
+        batch : selectedStudent.batch,
+        email : selectedStudent.email,
+        phone : selectedStudent.phone,
+        qualification: selectedStudent.qualification,
       },
         validationSchema : studentSchema,
         onSubmit : (editedStudent) => 

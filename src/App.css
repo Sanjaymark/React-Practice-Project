@@ -5,11 +5,15 @@
   margin : 15px;
 }
 .side-bar-styles{
-  height: inherit;
+  height: 800px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+.children
+{
+  height: 800px;
 }
 .actions{
   display: flex;
