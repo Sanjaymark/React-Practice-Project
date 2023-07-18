@@ -2,124 +2,172 @@ import { useEffect, useState } from "react";
 import Base from "../BasePage/Base";
 import { useNavigate, useParams } from "react-router-dom";
 import TcrumBar from "./Tcrumbar";
+import { AppState2 } from "../Context/AppProvider2";
+import { API2 } from "../API/api";
+import { useFormik } from "formik";
+import { teacherSchema } from "../Schema/schema";
 
-export default function EditProfile({ teacherData, setTdata, tcrumState, setTcrumState }) {
 
+export default function EditTeacher() 
+{
+
+   
+    const {teacherData, setData} = AppState2()
     const navigate = useNavigate()
 
     const { id } = useParams();
+    const selectedTeacher = teacherData.find((teac) => teac.id === id);
+    // Form validation logics 
 
-    const [idx, setIdx] = useState();
-    const [name, setName] = useState("");
-    const [batch, setBatch] = useState("");
-    const [qualification, setQualification] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-
-    useEffect(() => {
-        console.log("id : ", id)
-        const selectedTeacher = teacherData.find((stud, index) => stud.id === parseInt(id));
-        console.log(selectedTeacher)
-        setIdx(selectedTeacher.id)
-        setName(selectedTeacher.name)
-        setBatch(selectedTeacher.batch)
-        setQualification(selectedTeacher.qualification)
-        setPhone(selectedTeacher.phone)
-        setEmail(selectedTeacher.email)
-    }, [id,teacherData])
-
-    function editTeacher() {
-        const editedTeacherObject = {
-            id: idx,
-            name,
-            batch,
-            email,
-            phone,
-            qualification
+   const {values, handleChange, handleSubmit, handleBlur, errors, touched} = useFormik(
+    {
+      initialValues : 
+      {
+        name : selectedTeacher.name,
+        batch : selectedTeacher.batch,
+        email : selectedTeacher.email,
+        phone : selectedTeacher.phone,
+        qualification: selectedTeacher.qualification,
+      },
+        validationSchema : teacherSchema,
+        onSubmit : (editedTeacher) => 
+        {
+            console.log(editedTeacher)
+            editStudent(editedTeacher)
         }
-        console.log(editedTeacherObject)
+   })
+
+
+
+
+   async function editStudent(editedTeacher) {
+
+        // api handlers 
+        const response = await fetch(`${API2}/${id}`, {
+            method:"PUT",
+            body: JSON.stringify(editedTeacher),
+            headers:{
+                "Content-Type":"application/json"
+            },
+        })
+      const data = await response.json();
+      console.log("data----", data)
+      console.log("editObj", editedTeacher)
         // we need to find the index
-        const editIndex = teacherData.findIndex((stud, index) => stud.id === parseInt(id));
+        const editIndex = teacherData.findIndex((teac, index) => teac.id === id);
         console.log(editIndex)
-        teacherData[editIndex] = editedTeacherObject
-        setTdata([...teacherData]);
+        teacherData[editIndex] = data
+        setData([...teacherData]);
         navigate("/teacher/all")
     }
 
     return (
         <Base>
-        <TcrumBar 
-         tcrumState ={tcrumState}
-         setTcrumState ={setTcrumState}
-        />
-            <div className="p-5 ediv ">Please Fill the form to add Edit Student</div>
+    <TcrumBar/>
+            <div className="p-5">Edit Student</div>
             <div className="form-control">
-                <label className="input-group input-group-md inp m-2">
-                    <span>ID </span>
-                    <input
-                        type="number"
-                        placeholder="Enter Student ID"
-                        className="input input-bordered input-md w-96"
-                        value={idx}
-                        onChange={(e) => setIdx(e.target.value)}
-                    />
-                </label>
-
-                <label className="input-group input-group-md inp m-2">
+            <form onSubmit={handleSubmit}>
+                <label className="input-group input-group-md bn m-2">
                     <span>Name</span>
                     <input
                         type="text"
                         placeholder="Enter Student Name"
                         className="input input-bordered input-md w-96"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={values.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="name"
                     />
                 </label>
-                <label className="input-group input-group-md inp m-2">
+
+                {touched.name && errors.name ?
+                    <div className="text-red-300">
+                        {errors.name}
+                    </div> : ""
+                }
+
+                <label className="input-group input-group-md bn m-2">
                     <span>Batch</span>
                     <input type="text"
                         placeholder="Enter Student Batch"
                         className="input input-bordered input-md w-96"
-                        value={batch}
-                        onChange={(e) => setBatch(e.target.value)}
+                        value={values.batch}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="batch"
                     />
                 </label>
-                <label className="input-group input-group-md inp m-2">
+
+                {touched.batch && errors.batch ?
+                    <div className="text-red-300">
+                        {errors.batch}
+                    </div> : ""
+                }
+
+                <label className="input-group input-group-md bn m-2">
                     <span>Email</span>
                     <input
                         type="text"
                         placeholder="Enter Student Email"
                         className="input input-bordered input-md w-96"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="email"
                     />
                 </label>
-                <label className="input-group input-group-md inp m-2">
+
+                {touched.email && errors.email ?
+                    <div className="text-red-300">
+                        {errors.email}
+                    </div> : ""
+                }
+
+
+                <label className="input-group input-group-md bn m-2">
                     <span>Phone</span>
                     <input
                         type="text"
                         placeholder="Enter Student Phone"
                         className="input input-bordered input-md w-96"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        value={values.phone}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="phone"
                     />
                 </label>
-                <label className="input-group input-group-md inp m-2">
+
+                {touched.phone && errors.phone ?
+                    <div className="text-red-300">
+                        {errors.phone}
+                    </div> : ""
+                }
+
+                <label className="input-group input-group-md bn m-2">
                     <span>Education</span>
                     <input
                         type="text"
                         placeholder="Enter Student Education"
                         className="input input-bordered input-md w-96"
-                        value={qualification}
-                        onChange={(e) => setQualification(e.target.value)}
+                        value={values.qualification}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="qualification"
                     />
                 </label>
 
-                <button className="rounded-full bn bg-base-200 p-2 m-5"
-                    onClick={editTeacher}
+                {touched.qualification && errors.qualification ?
+                    <div className="text-red-300">
+                        {errors.qualification}
+                    </div> : ""
+                }
+
+                <button className="rounded-full bg-base-200 p-2 bn m-5"
+                    type="submit"
                 >
                     Edit Teacher
                 </button>
+            </form>
             </div>
         </Base>
     )

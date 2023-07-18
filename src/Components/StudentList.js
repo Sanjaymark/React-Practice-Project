@@ -1,24 +1,57 @@
+import { useState } from "react"
 import Base from "../BasePage/Base"
+import { AppState1 } from "../Context/AppProvider1"
 import CrumBar from "./CrumBar"
 import StudentCard from "./StudentCard"
+import { useNavigate } from "react-router-dom"
 
-function StudentList({studentData, setData, crumState, setCrumState}){
+function StudentList(){
+  const navigate = useNavigate()
+    const {studentData} = AppState1()
+  const [currentPage, setPage] = useState(1)
     return (
         <Base>
-        <CrumBar 
-         crumState ={crumState}
-         setCrumState ={setCrumState}
-        />
-            {studentData.map((stud, idx)=>(
+        <CrumBar/>
+
+        <div className="p-2 m-2 flex">
+        <button 
+        className="rounded-full bg-base-200 bn p-3 m-5"
+        onClick={()=>navigate("/student/add")}
+        >
+            Add More Students</button>
+        </div>
+            {studentData.slice(currentPage*2-2, currentPage*2).map((stud, idx)=>(
                 <StudentCard
                 student={stud}
-                studentData ={studentData}
-                setData={setData}
-                key={stud.id}
-                crumState ={crumState}
-                setCrumState ={setCrumState}
+                key={idx}
                 />
             ))}
+            
+<div className="join">
+<button
+         onClick={()=>
+          currentPage >1 ? setPage(currentPage-1) : ""
+        }
+         className={`join-item btn btn-md `}>prev
+         </button>  
+  {
+    [...Array(Math.ceil((studentData.length/2)))].map((_, index)=>(
+        <button
+         onClick={()=>setPage(index+1)}
+         className={currentPage ===(index+1) ? 
+         "join-item btn btn-md btn-active" 
+         : 
+         "join-item btn btn-md" }>{index+1}
+         </button>     
+    ))
+  }
+<button
+         onClick={()=>
+          currentPage < Math.ceil((studentData.length/2)) 
+          ? setPage(currentPage+1) : ""}
+         className={`join-item btn btn-md `}>next
+         </button>  
+</div>
         </Base>
     )
 }
