@@ -1,1 +1,1 @@
-export const API ="https://day8.onrender.com"
+export const API ="https://practice-task-7hg3.onrender.com"

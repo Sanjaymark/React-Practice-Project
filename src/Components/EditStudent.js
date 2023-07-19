@@ -1,51 +1,47 @@
-
+import { useEffect, useState } from "react";
 import Base from "../BasePage/Base";
 import { useNavigate, useParams } from "react-router-dom";
 import CrumBar from "./CrumBar";
 import { AppState } from "../Context/AppProvider";
 import { API } from "../API/api";
-import { useFormik } from "formik";
-import { studentSchema } from "../Schema/schema";
 
-
-export default function EditStudent() 
-{
-
-   
+export default function EditStudent() {
     const {studentData, setData} = AppState()
     const navigate = useNavigate()
 
     const { id } = useParams();
-    const selectedStudent = studentData.find((stud) => stud.id === id);
-    // Form validation logics 
 
-   const {values, handleChange, handleSubmit, handleBlur, errors, touched} = useFormik(
-    {
-      initialValues : 
-      {
-        name : selectedStudent.name,
-        batch : selectedStudent.batch,
-        email : selectedStudent.email,
-        phone : selectedStudent.phone,
-        qualification: selectedStudent.qualification,
-      },
-        validationSchema : studentSchema,
-        onSubmit : (editedStudent) => 
-        {
-            console.log(editedStudent)
-            editStudent(editedStudent)
+
+    const [name, setName] = useState("");
+    const [batch, setBatch] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [qualification, setQualification] = useState("");
+
+    useEffect(() => {
+        console.log("id : ", id)
+        const selectedStudent = studentData.find((stud, index) => stud._id === id);
+        console.log(studentData)
+        setName(selectedStudent.name)
+        setBatch(selectedStudent.batch)
+        setQualification(selectedStudent.qualification)
+        setPhone(selectedStudent.phone)
+        setEmail(selectedStudent.email)
+    }, [id])
+
+   async function editStudent() {
+        const editedStudentObject = {
+            name,
+            batch,
+            email,
+            phone,
+            qualification
         }
-   })
-
-
-
-
-   async function editStudent(editedStudent) {
 
         // api handlers 
-        const response = await fetch(`${API}/edit/${id}`, {
+        const response = await fetch(`${API}/students/edit/${id}`, {
             method:"PUT",
-            body: JSON.stringify(editedStudent),
+            body: JSON.stringify(editedStudentObject),
             headers:{
                 "Content-Type":"application/json",
                 "x-auth-token":localStorage.getItem("token")
@@ -53,122 +49,75 @@ export default function EditStudent()
         })
       const data = await response.json();
       console.log("data----", data)
-      console.log("editObj", editedStudent)
+      console.log("editObj", editedStudentObject)
         // we need to find the index
-        const editIndex = studentData.findIndex((stud, index) => stud.id === id);
+        const editIndex = studentData.findIndex((stud, index) => stud._id === id);
         console.log(editIndex)
         studentData[editIndex] = data
         setData([...studentData]);
-        navigate("/student/all")
+        
     }
 
     return (
         <Base>
     <CrumBar/>
-            <div className="p-5">Edit Student</div>
+            <div className="p-5">Please Fill the form to add Edit Student</div>
             <div className="form-control">
-            <form onSubmit={handleSubmit}>
                 <label className="input-group input-group-md bn m-2">
                     <span>Name</span>
                     <input
                         type="text"
                         placeholder="Enter Student Name"
                         className="input input-bordered input-md w-96"
-                        value={values.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </label>
-
-                {touched.name && errors.name ?
-                    <div className="text-red-300">
-                        {errors.name}
-                    </div> : ""
-                }
-
                 <label className="input-group input-group-md bn m-2">
                     <span>Batch</span>
                     <input type="text"
                         placeholder="Enter Student Batch"
                         className="input input-bordered input-md w-96"
-                        value={values.batch}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="batch"
+                        value={batch}
+                        onChange={(e) => setBatch(e.target.value)}
                     />
                 </label>
-
-                {touched.batch && errors.batch ?
-                    <div className="text-red-300">
-                        {errors.batch}
-                    </div> : ""
-                }
-
                 <label className="input-group input-group-md bn m-2">
                     <span>Email</span>
                     <input
                         type="text"
                         placeholder="Enter Student Email"
                         className="input input-bordered input-md w-96"
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
-
-                {touched.email && errors.email ?
-                    <div className="text-red-300">
-                        {errors.email}
-                    </div> : ""
-                }
-
-
                 <label className="input-group input-group-md bn m-2">
                     <span>Phone</span>
                     <input
                         type="text"
                         placeholder="Enter Student Phone"
                         className="input input-bordered input-md w-96"
-                        value={values.phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="phone"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
                     />
                 </label>
-
-                {touched.phone && errors.phone ?
-                    <div className="text-red-300">
-                        {errors.phone}
-                    </div> : ""
-                }
-
                 <label className="input-group input-group-md bn m-2">
                     <span>Education</span>
                     <input
                         type="text"
                         placeholder="Enter Student Education"
                         className="input input-bordered input-md w-96"
-                        value={values.qualification}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="qualification"
+                        value={qualification}
+                        onChange={(e) => setQualification(e.target.value)}
                     />
                 </label>
 
-                {touched.qualification && errors.qualification ?
-                    <div className="text-red-300">
-                        {errors.qualification}
-                    </div> : ""
-                }
-
-                <button className="rounded-full bg-base-200 p-2 bn m-5"
-                    type="submit"
+                <button className="rounded-full bg-base-200 bn p-2 m-5"
+                    onClick={editStudent}
                 >
                     Edit Student
                 </button>
-            </form>
             </div>
         </Base>
     )

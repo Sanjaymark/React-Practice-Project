@@ -16,9 +16,9 @@ function App() {
 
         <Route path="/profile" element={<Profile/>} />
 
-        <Route path="/student/add" element={<AddStudents/>} />
+        <Route path="/students/add" element={<AddStudents/>} />
 
-        <Route path="/edit/:id" element={<EditStudent/>} />
+        <Route path="/students/edit/:id" element={<EditStudent/>} />
 
         <Route path="/student/all" element={<StudentList/>} />
 

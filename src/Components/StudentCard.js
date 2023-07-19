@@ -26,10 +26,10 @@ export default function StudentCard({student}){
     const handleEdit = (id)=>{
         const newCrum = {
             name : "edit",
-            path:  `/edit/${id}`
+            path:  `/students/edit/${id}`
         }
         setCrumState([...crumState, newCrum])
-        navigate(`/edit/${id}`)
+        navigate(`/students/edit/${id}`)
     }
 
 
