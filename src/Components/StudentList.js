@@ -1,4 +1,4 @@
-import { useState } from "react"
+import {  useEffect, useState } from "react"
 import Base from "../BasePage/Base"
 import { AppState } from "../Context/AppProvider"
 import CrumBar from "./CrumBar"
@@ -6,8 +6,10 @@ import StudentCard from "./StudentCard"
 import { useNavigate } from "react-router-dom"
 
 function StudentList(){
+
+  
   const navigate = useNavigate()
-    const {studentData} = AppState()
+  const {studentData} = AppState()
   const [currentPage, setPage] = useState(1)
     return (
         <Base>

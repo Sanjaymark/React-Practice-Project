@@ -7,9 +7,9 @@ import { API } from "../API/api";
 
 export default function EditStudent() {
     const {studentData, setData} = AppState()
-    const navigate = useNavigate()
 
     const { id } = useParams();
+    
 
 
     const [name, setName] = useState("");
@@ -21,13 +21,13 @@ export default function EditStudent() {
     useEffect(() => {
         console.log("id : ", id)
         const selectedStudent = studentData.find((stud, index) => stud._id === id);
-        console.log(studentData)
+        console.log(selectedStudent)
         setName(selectedStudent.name)
         setBatch(selectedStudent.batch)
         setQualification(selectedStudent.qualification)
         setPhone(selectedStudent.phone)
         setEmail(selectedStudent.email)
-    }, [id])
+    }, [id,studentData])
 
    async function editStudent() {
         const editedStudentObject = {
@@ -54,7 +54,7 @@ export default function EditStudent() {
         const editIndex = studentData.findIndex((stud, index) => stud._id === id);
         console.log(editIndex)
         studentData[editIndex] = data
-        setData([...studentData]);
+        setData(studentData);
         
     }
 
