@@ -22,7 +22,7 @@ export default function SideBar(){
                 </li>
                 <li className="rounded-full p-2 hover:bg-sky-700">
                     <button
-                      onClick={()=>navigate("/student/all")}
+                      onClick={()=>navigate("/students/all")}
                     >Student list</button>
                 </li>
                 <li className="rounded-full p-2 hover:bg-sky-700">
