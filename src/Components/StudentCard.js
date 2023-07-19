@@ -18,7 +18,7 @@ export default function StudentCard({student}){
         });
         const data = await response.json();
         console.log(data)
-        const newStudentData = studentData.filter((stud)=>stud.id !== id);
+        const newStudentData = studentData.filter((stud)=>stud._id !== id);
         setData(newStudentData)
        }
     }
